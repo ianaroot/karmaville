@@ -1,4 +1,6 @@
 <h1>KarmaVille's Most Famous</h1>
+
+<div class="content">
 <table class="table table-bordered table-striped">
   <tr>
     <th>Karma</th>
@@ -7,6 +9,29 @@
     <th>Email</th>
   </tr>
   <% @users.each do |user| %>
-    <%= render 'user_row', :user => user %>
+    <tr>
+      <td><i class="icon-star"></i> <%= number_with_delimiter(user.total_karma) %></td>
+      <td><%= user.full_name %></td>
+      <td><%= user.username %></td>
+      <td><%= mail_to user.email, user.email %></td>
+    </tr>
   <% end %>
+
+
 </table>
+
+
+<%unless first_page%>
+  <%= link_to "previous page", "/?page=#{@page - 1}", :id => 'previous' %>
+<%end%>
+<%= render 'sweet_pagination', page: @page %>
+<% unless @page = page_total %>
+  <%= link_to "next page", "/?page=#{@page + 1}", :id => 'next' %>
+<% end %>
+
+
+</div>
+
+
+
+

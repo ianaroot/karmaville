@@ -14,14 +14,14 @@ TOTAL_KARMA = 1_500_000
 TOTAL_USERS = 100_000
 SLICE_SIZE  = 20_000
 
-fields = [:first_name, :last_name, :email, :username, :created_at, :updated_at]
+fields = [:first_name, :last_name, :email, :username, :created_at, :updated_at] # Add karma_points field
 TOTAL_USERS.times.each_slice(SLICE_SIZE).each_with_index do |ids, index|
   data = ids.map do |i|
-    [Faker::Name.first_name, Faker::Name.last_name, "email_#{i}@example.com", "user_#{i}", now, now]
+    [Faker::Name.first_name, Faker::Name.last_name, "email_#{i}@example.com", "user_#{i}", now, now] # execute code to populate karma_points field
   end
 
   puts "Inserted #{(index + 1)*SLICE_SIZE} of #{TOTAL_USERS} users..."
-  User.import(fields, data, :validate => false, :timestamps => false)  
+  User.import(fields, data, :validate => false, :timestamps => false)
 end
 
 user_ids = User.pluck(:id)
@@ -37,3 +37,6 @@ TOTAL_KARMA.times.each_slice(SLICE_SIZE).each_with_index do |ids, index|
   puts "Inserted #{(index + 1)*SLICE_SIZE} of #{TOTAL_KARMA} karma points..."
   KarmaPoint.import(fields, data, :validate => false, :timestamps => false)
 end
+ def total_karma
+    self.karma_points.sum(:value)
+  end

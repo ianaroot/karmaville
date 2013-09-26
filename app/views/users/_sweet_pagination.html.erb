@@ -1,0 +1,12 @@
+<% if pages_left(10, "+") %>
+  <%= link_to "forward 10", "/?page=#{@page + 10}" %>
+<% end %>
+<% if pages_left(50, "+") %>
+  <%= link_to "forward 50", "/?page=#{@page + 50}" %>
+<% end %>
+<% if pages_left(100, "+") %>
+  <%= link_to "forward 100", "/?page=#{@page + 100}" %>
+<% end %>
+<% if pages_left(1000, "+") %>
+  <%= link_to "forward 1000", "/?page=#{@page + 1000}" %>
+<% end %>
